@@ -1,0 +1,18 @@
+from robotix.memory.conf.conf import Conf
+from robotix.mental.cognition.memory.memorizing import Memorizing
+from utilityx.data.source.source import Source
+from robotix.mental.cognition.memory.memorizing import Memory as MemoryBase
+
+
+class Memory(MemoryBase):
+    def __init__(self, source:Source, memorizing:Memorizing, remembering:Remebering):
+        """
+        In this method, I mean "all" method all the sensors etc are saved
+        """
+        self.__source = source
+        self.__memorizing = memorizing
+        self.__remembering = remembering
+
+
+    def get_memorizing(self)->Memorizing:
+        return self.__memorizing

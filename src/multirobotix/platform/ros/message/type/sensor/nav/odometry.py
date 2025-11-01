@@ -1,0 +1,99 @@
+from functools import cache
+
+from mathx.probability.covariance_matrix import CovarianceMatrix
+from physix.quantity.type.kinematic.kinematic import Kinematic
+from physix.quantity.decorator.distributed.gaussianed import Gaussianed
+from physix.quantity.type.kinematic.pose.pose import Pose
+from physix.quantity.type.kinematic.pose.position.position import Position
+from physix.quantity.type.kinematic.pose.orientation.quaternion import Quaternion
+from physix.quantity.type.kinematic.twist.angular import Angular
+from physix.quantity.type.kinematic.twist.linear import Linear
+from physix.quantity.type.kinematic.twist.twist import Twist
+from robotix.mental.cognition.memory.long_term.explicit.episodic.trace.population_filled_trace import \
+    PopulationFilledTrace
+from robotix.mental.cognition.memory.long_term.explicit.episodic.trace.type.types import Types
+from robotix.platform.ros.message.field.field import Field
+from robotix.platform.ros.message.message import Message
+from robotix.platform.ros.message.type.header.time_stamp import TimeStamp
+from utilix.data.type.dic.dic import Dic
+from typing import List, Sequence
+import numpy as np
+
+
+class Odometry(Message):
+
+    def __init__(self, fields:List):
+        super().__init__(fields)
+        self._time = self.get_field_value_by_name("time")
+
+    @classmethod
+    def init_from_dic(cls, dic: Dic) -> "Odometry":
+        # fields
+        fields:List[Field] = []
+
+        # time
+        time = TimeStamp.get_time_by_dic(dic)
+        field = Field("time", time, float)
+        fields.append(field)
+
+        # pose
+        ## position
+        field = Field("position", Dic(dic["pose"]["pose"]["position"]), Dic)
+        fields.append(field)
+
+        ## orientation
+        field = Field("orientation", Dic(dic["pose"]["pose"]["orientation"]), Dic)
+        fields.append(field)
+
+        ## orientation
+        field = Field("pose_covarience", dic["pose"]["covariance"], Sequence)
+        fields.append(field)
+
+        # twist
+        ## linear
+        field = Field("linear_twist", Dic(dic["twist"]["twist"]["linear"]), Dic)
+        fields.append(field)
+
+        ## angular
+        field = Field("angular_twist", Dic(dic["twist"]["twist"]["angular"]), Dic)
+        fields.append(field)
+
+        ## orientation
+        field = Field("twist_covarience", dic["twist"]["covariance"], Sequence)
+        fields.append(field)
+
+        return cls(fields)
+
+    @cache
+    def get_distributed_kinematic_population_filled_trace(self)-> PopulationFilledTrace:
+
+        #pose
+        position_field = self.get_field_value_by_name("position")
+        position = Position(position_field["x"], position_field["y"], position_field["z"])
+
+        orientation_field = self.get_field_value_by_name("orientation")
+        orientation = Quaternion(orientation_field["x"], orientation_field["y"], orientation_field["z"],
+                                 orientation_field["w"])
+        pose_cov_field = self.get_field_value_by_name("pose_covarience")
+        cov_pose = CovarianceMatrix(np.array(pose_cov_field).reshape(6, 6), False)
+
+        distributed_pose = Gaussianed(Pose(position, orientation), cov_pose)
+
+        #twist
+        linear_twist_field = self.get_field_value_by_name("linear_twist")
+        linear_twist = Linear(linear_twist_field["x"], linear_twist_field["y"], linear_twist_field["z"])
+
+        angular_twist_field = self.get_field_value_by_name("angular_twist")
+        angular_twist = Angular(angular_twist_field["x"], angular_twist_field["y"], angular_twist_field["z"])
+
+        twist_cov_field = self.get_field_value_by_name("twist_covarience")
+        cov_twist = CovarianceMatrix(np.array(twist_cov_field).reshape(6, 6), False)
+
+        distributed_twist = Gaussianed(Twist(linear_twist, angular_twist), cov_twist)
+
+        # kinematic
+        trace = PopulationFilledTrace(Kinematic(distributed_pose, distributed_twist), self._time, Types.ditributed_quaternion_kinematic)
+
+        return trace
+
+
