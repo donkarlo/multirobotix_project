@@ -1,7 +1,5 @@
-from typing import Optional
-
+from typing import Optional, List, Tuple
 from abc import ABC
-
 from robotix.plan.plan import Plan
 from robotix.plan.mission.mission import Mission
 from robotix.robot import Robot
@@ -13,39 +11,47 @@ class Scenario(ABC):
     Scenario is more than a robot and its missions
     For ecxample it might include the world mission_state such as walls
     """
-    def __init__(self, robot:Robot, mission:Mission, plan: Plan, world:World, name:Optional[str]=None):
+
+    def __init__(self, robots_missions_plans:List[Tuple[Robot,Mission,Plan]], world: World, name: Optional[str] = None):
         """
 
-        :param robot:
-        :param mission: Maybe it is a composite and decorated mission, that is a sequence of timed missionsarer
-        :param world:
+        Args:
+            robots_missions_plans:
+            world:
+            name:
         """
-        self._robot = robot
-        self._mission = mission
-        self._plan = plan
+        self._robots_missions_plans = robots_missions_plans
 
         self._world = world
         self._name = name
 
         # run
 
-    def run(self)->None:
-        self._robot.achieve_mission(self._mission)
+    def run(self) -> None:
+        for robot, mission, _ in self._robots_missions_plans:
+            robot.achieve_mission(mission)
 
-    def learn(self):
-        self._robot.learn()
+    def remember(self):
+        self._robot.remember()
 
-    def get_world(self)->World:
+    def get_world(self) -> World:
         return self._world
 
-    def get_mission(self)->Mission:
-        return self._mission
+    def get_mission(self, robot_name:str) -> Mission:
+        for robot, mission, plan in self._robots_missions_plans:
+            if robot.get_name() == robot_name:
+                return mission
 
-    def get_robot(self)->Robot:
-        return self._robot
+    def get_robots(self) -> List[Robot]:
+        robots = []
+        for robot, mission, plan in self._robots_missions_plans:
+            robots.append(robot)
+        return robots
 
-    def get_plan(self)->Plan:
-        return self._plan
+    def get_plan(self, robot_name: str) -> Robot:
+        for robot, mission, plan in self._robots_missions_plans:
+            if robot.get_name() == robot_name:
+                return plan
 
-    def get_name(self)->str:
+    def get_name(self) -> Optional[str]:
         return self._name
