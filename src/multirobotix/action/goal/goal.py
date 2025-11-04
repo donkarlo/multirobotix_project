@@ -1,7 +1,6 @@
 from mathx.linalg.tensor.vector.vector_representable import VectorRepresentable
-from mathx.linalg.tensor.vector.vector_representable import VectorRepresentable
-from robotix.action.goal.acceptance_criterion import AcceptanceCriterion
-from typing import  Optional
+from robotix.mind.goal.acceptance_criterion import AcceptanceCriterion
+
 
 class Goal(VectorRepresentable):
     """

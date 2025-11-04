@@ -1,1 +1,0 @@
-"""Wisdom is judgement based on knowledge"""

@@ -1,29 +1,30 @@
 from typing import Optional, List, Tuple
-from abc import ABC
-from robotix.plan.plan import Plan
-from robotix.plan.mission.mission import Mission
+
+from robotix.experiment.scenario import Scenario as BaseScenario
+from robotix.mind.action.composite.plan.plan import Plan
+from robotix.mind.goal.composite.mission.mission import Mission
 from robotix.robot import Robot
 from physix.world.world import World
 
 
-class Scenario(ABC):
+class Scenario(BaseScenario):
     """
     Scenario is more than a robot and its missions
     For ecxample it might include the world mission_state such as walls
     """
 
-    def __init__(self, robots_missions_plans:List[Tuple[Robot,Mission,Plan]], world: World, name: Optional[str] = None):
+    def __init__(self, robots_missions_plans:List[Tuple[Robot,Mission,Plan]], world: World, label: Optional[str] = None):
         """
 
         Args:
             robots_missions_plans:
             world:
-            name:
+            label:
         """
         self._robots_missions_plans = robots_missions_plans
 
         self._world = world
-        self._name = name
+        self._name = label
 
         # run
 
