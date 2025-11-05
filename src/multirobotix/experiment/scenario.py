@@ -13,18 +13,18 @@ class Scenario(BaseScenario):
     For ecxample it might include the world mission_state such as walls
     """
 
-    def __init__(self, robots_missions_plans:List[Tuple[Robot,Mission,Plan]], world: World, label: Optional[str] = None):
+    def __init__(self, robots_missions_plans:List[Tuple[Robot,Mission,Plan]], world: World, name: Optional[str] = None):
         """
 
         Args:
             robots_missions_plans:
             world:
-            label:
+            name:
         """
         self._robots_missions_plans = robots_missions_plans
 
         self._world = world
-        self._name = label
+        self._name = name
 
         # run
 
