@@ -1,1 +1,0 @@
-"""Leaf is a group that all its modality_members are single robots"""

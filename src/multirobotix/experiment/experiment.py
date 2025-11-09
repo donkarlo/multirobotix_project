@@ -1,6 +1,25 @@
-from robotix.experiment.experiment import Experiment as RoboticExperiment
+from typing import List
+
+from multirobotix.experiment.scenario import Scenario
 
 
-class Experiment(RoboticExperiment):
-    def __init__(self):
-        self._robots = []
+class Experiment:
+    """
+    We know in a robotic experiment a robot tries to achieve a initial_mission
+    """
+
+    def __init__(self, learning_scenarios: List[Scenario], testing_scenarios: List[Scenario]) -> None:
+        self._testing_scenarios = testing_scenarios
+        self._learning_scenarios = learning_scenarios
+
+        # do the experiment
+        self.learn()
+        self.test()
+
+    def learn(self) -> None:
+        for scenario in self._learning_scenarios:
+            scenario.learn()
+
+    def test(self) -> None:
+        for scenario in self._testing_scenarios:
+            scenario.test()
