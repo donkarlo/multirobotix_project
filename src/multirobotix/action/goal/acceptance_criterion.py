@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from robotix.mind.perception.state.state import State
+from robotix.mind.cognition.process.kind.perception.state.state import State
 
 
 class AcceptanceCriterion(ABC):

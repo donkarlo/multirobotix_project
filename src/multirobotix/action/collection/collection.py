@@ -1,6 +1,6 @@
 from typing import List
 
-from robotix.mind.action.action import Action
+from robotix.body.actuator.action.action import Action
 
 
 class Collection:

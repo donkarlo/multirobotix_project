@@ -1,6 +1,6 @@
 from typing import Protocol, runtime_checkable
 
-from robotix.mind.action.action import Action
+from robotix.body.actuator.action.action import Action
 
 
 @runtime_checkable

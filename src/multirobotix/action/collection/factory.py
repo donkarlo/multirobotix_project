@@ -1,6 +1,6 @@
 import copy
 
-from robotix.mind.action.action import Action
+from robotix.body.actuator.action.action import Action
 from typing import List
 from utilix.data.storage.type.file.file import File
 from utilix.os.file_system.path.path import Path

@@ -1,5 +1,5 @@
 from multirobotix.group import Group
-from robotix.mind.memory.composite.component import Component as MemoryComponent
+from robotix.mind.cognition.process.kind.memory.composite.component import Component as MemoryComponent
 from robotix.robot import Robot
 from typing import List, Optional
 import copy
