@@ -1,6 +1,6 @@
 from typing import Protocol, runtime_checkable, List
 
-from robotix.mind.goal.composite.mission.mission import Mission
+from robotix.structure.kind.mind.goal.composite.goal import Goal
 from robotix.robot import Robot
 
 
@@ -8,4 +8,4 @@ from robotix.robot import Robot
 class Interface(Protocol):
     _memebers:List[Robot]
     def get_memebers(self) -> List[Robot]: ...
-    def achieve_mission(self, robot:Robot, mission:Mission)->bool: ...
+    def achieve_mission(self, robot:Robot, mission:Goal)->bool: ...

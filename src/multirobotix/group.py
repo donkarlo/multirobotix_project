@@ -1,7 +1,7 @@
 from abc import ABC
 from typing import List
 from robotix.robot import Robot
-from robotix.mind.goal.composite.mission.mission import Mission
+from robotix.structure.kind.mind.goal.composite.goal import Goal
 
 
 class Group(ABC):
@@ -19,5 +19,5 @@ class Group(ABC):
     def get_members(self)->List[Robot]:
         return self._members
 
-    def achieve_mission(self, robot:Robot, mission:Mission)->bool:
+    def achieve_mission(self, robot:Robot, mission:Goal)->bool:
         return robot.achieve_mission(mission)

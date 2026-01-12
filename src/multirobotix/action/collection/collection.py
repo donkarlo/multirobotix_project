@@ -1,8 +1,8 @@
 from typing import List
 
-from robotix.body.actuator.action.action import Action
+from robotix.structure.kind.mind.goal.action.composite.component import Component
 
 
 class Collection:
-    def __init__(self, members:List[Action]):
+    def __init__(self, members:List[Component]):
         self._members = members

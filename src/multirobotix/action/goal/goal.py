@@ -1,10 +1,10 @@
 from mathx.linalg.tensor.vector.vector_representable import VectorRepresentable
-from robotix.mind.goal.acceptance.criterion import AcceptanceCriterion
+from robotix.structure.kind.mind.goal.acceptance.criterion import AcceptanceCriterion
 
 
 class Goal(VectorRepresentable):
     """
-    Represents a target state and its acceptance criterion.
+    Represents a bottom state and its acceptance criterion.
     """
 
     def __init__(self, desired_state: VectorRepresentable, acceptance: AcceptanceCriterion):

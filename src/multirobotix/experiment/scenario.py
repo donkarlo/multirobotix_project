@@ -1,8 +1,8 @@
 from typing import Optional, List, Tuple
 
 from robotix.experiment.scenario import Scenario as BaseScenario
-from robotix.body.actuator.action.composite.plan.plan import Plan
-from robotix.mind.goal.composite.mission.mission import Mission
+from robotix.structure.kind.mind.goal.action.composite.composite import Composite
+from robotix.structure.kind.mind.goal.composite.goal import Goal
 from robotix.robot import Robot
 from physix.world.world import World
 
@@ -13,7 +13,7 @@ class Scenario(BaseScenario):
     For ecxample it might include the world mission_state such as walls
     """
 
-    def __init__(self, robots_missions_plans:List[Tuple[Robot,Mission,Plan]], world: World, name: Optional[str] = None):
+    def __init__(self, robots_missions_plans:List[Tuple[Robot,Goal,Composite]], world: World, name: Optional[str] = None):
         """
 
         Args:
@@ -38,7 +38,7 @@ class Scenario(BaseScenario):
     def get_world(self) -> World:
         return self._world
 
-    def get_mission(self, robot_name:str) -> Mission:
+    def get_mission(self, robot_name:str) -> Goal:
         for robot, mission, plan in self._robots_missions_plans:
             if robot.get_name() == robot_name:
                 return mission

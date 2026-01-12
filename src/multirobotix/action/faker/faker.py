@@ -1,6 +1,6 @@
 from typing import Protocol, runtime_checkable
 
-from robotix.body.actuator.action.action import Action
+from robotix.structure.kind.mind.goal.action.composite.component import Component
 
 
 @runtime_checkable
@@ -8,5 +8,5 @@ class Faker(Protocol):
     """
     Is to fake an action
     """
-    def fake(self, action:Action) -> Action:
+    def fake(self, action:Component) -> Component:
         ...
