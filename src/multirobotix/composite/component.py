@@ -1,4 +1,4 @@
-from robotix.structure.kind.mind.goal.composite.component import Component as BaseComponent
+from robotix.structure.kind.mind.action.goal.composite.component import Component as BaseComponent
 
 
 class Component(BaseComponent):

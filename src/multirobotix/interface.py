@@ -1,6 +1,6 @@
 from typing import Protocol, runtime_checkable, List
 
-from robotix.structure.kind.mind.goal.composite.goal import Goal
+from robotix.structure.kind.mind.action.goal.composite.goal import Goal
 from robotix.robot import Robot
 
 

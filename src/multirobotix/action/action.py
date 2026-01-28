@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from robotix.structure.kind.mind.goal.goal import Goal
+from robotix.structure.kind.mind.action.goal.goal import Goal
 
 class Action(ABC):
     """

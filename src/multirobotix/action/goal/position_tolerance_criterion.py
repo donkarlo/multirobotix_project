@@ -1,5 +1,5 @@
 import math
-from robotix.structure.kind.mind.goal.acceptance.criterion import AcceptanceCriterion
+from robotix.structure.kind.mind.action.goal.acceptance.criterion import AcceptanceCriterion
 from physix.quantity.kind.dynamic.kinematic.pose.position.position import Position
 
 

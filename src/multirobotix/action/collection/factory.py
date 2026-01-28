@@ -1,6 +1,6 @@
 import copy
 
-from robotix.structure.kind.mind.goal.action.composite.component import Component
+from robotix.structure.kind.mind.action.composite.component import Component
 from typing import List
 from utilix.data.storage.type.file.file import File
 from utilix.os.file_system.path.path import Path
